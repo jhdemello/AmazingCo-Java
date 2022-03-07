@@ -66,32 +66,36 @@ public class Main {
         AwesomeTreeNode root = new AwesomeTreeNode("Galt, John");
 
         // Level 1
-        root.insert(root, "Danneskjold, Ragnar");
-        root.insert(root, "Taggart, Dagny");
-        root.insert(root, "d'Anconia, Francisco");
+        root.insert("Danneskjold, Ragnar");
+        root.insert("Taggart, Dagny");
+        root.insert("d'Anconia, Francisco");
 
         // Level 2
         AwesomeTreeNode node = root.get("Danneskjold, Ragnar");
-        node.insert(node, "Reardon, Hank");
-        node.insert(node, "Willers, Eddie");
-        node.insert(node, "Dannager, Ken");
+        node.insert("Reardon, Hank");
+        node.insert("Willers, Eddie");
+        node.insert("Dannager, Ken");
 
         node = root.get("Taggart, Dagny");
-        node.insert(node, "Taggart, James");
+        node.insert("Taggart, James");
 
         node = root.get("d'Anconia, Francisco");
-        node.insert(node, "Reardon, Lillian");
-        node.insert(node, "Stadler, Robert");
-        node.insert(node, "Brooks, Cherryl");
+        node.insert("Reardon, Lillian");
+        node.insert("Stadler, Robert");
+        node.insert("Brooks, Cherryl");
 
         root.printTree();
 
-        // Move operation
-        AwesomeTreeNode nodeMove = root.pluck("Taggart, James");
+        // MOVE: Jim from Dagny to Ragnar
+        root.move("Taggart, James",
+                  "Taggart, Dagny",
+                  "Danneskjold, Ragnar");
+        root.printTree();
 
-        node = root.get("Danneskjold, Ragnar");
-        //AwesomeTreeNode nodeMove = root.pluck("Taggart, Dagny");
-        node.insert(node, nodeMove.name);
+        // MOVE: Demote Ragnar from VP to Office Admin (promoting all of Ragnar's direct reports to VP!?)
+        AwesomeTreeNode fromNode = root.get(root.name);
+        AwesomeTreeNode toNode = root.get("Taggart, Dagny");
+        root.move("Danneskjold, Ragnar", fromNode, toNode);
         root.printTree();
     }
 }

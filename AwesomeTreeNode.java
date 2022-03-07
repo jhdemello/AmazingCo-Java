@@ -26,7 +26,7 @@ public class AwesomeTreeNode {
     AwesomeTreeNode parent;
 
     // This node's list of children.
-    List<AwesomeTreeNode> children = new LinkedList<>();
+    LinkedList<AwesomeTreeNode> children = new LinkedList<>();
 
     /**
      * Constructor with neither root nor parent.
@@ -64,7 +64,7 @@ public class AwesomeTreeNode {
     AwesomeTreeNode(AwesomeTreeNode p, String n) {
         height = p.height + 1;
         name = n;
-        root = p.root;
+        root = p.root; // A tree's root is its root, regardless of who 'this' is, even if root.
         parent = p;
     }
 
@@ -226,10 +226,9 @@ public class AwesomeTreeNode {
         AwesomeTreeNode retval = null;
 
         if (this.name.equalsIgnoreCase(nodeName)) {
-            // Base case: Node found => add new node to list of children and return
+            // Base case: Node found => return this node
             if (isDebugOn()) {
                 System.out.println(funcName + "BASE CASE[FOUND]: " + this.name);
-                System.out.println(funcName + "   Number of Children: " + this.children.size());
             }
             retval = this;
         } else if (!this.children.isEmpty()) {
@@ -292,10 +291,14 @@ public class AwesomeTreeNode {
             IntStream.range(0, this.children.size()).forEachOrdered(i -> {
                     AwesomeTreeNode child = new AwesomeTreeNode(this.root,
                                                                 this.parent,
-                                                                this.children.get(i).name);
+                                                                this.children.getFirst().name);
+
+                    if (isDebugOn()) {
+                        System.out.println(funcName + "      [" + i + "]: " + child.name);
+                    }
 
                     this.parent.children.add(child);
-                    this.children.remove(i);
+                    this.children.removeFirst();
                 }
             );
 
@@ -343,21 +346,21 @@ public class AwesomeTreeNode {
      * Insert a node into the tree. It is assumed that the 'this' pointer represents any given node in the tree,
      * root or not, and that it is the intended parent of the child to insert. 
      *
-     * @param parent    Input parameter identifying the intended parent of the new node.
-     * @param childName Input parameter identifying the child node to insert. It is assumed that 'childName'does
-     *                  not exist in the tree.
-     *
-     * ASSUMPTION:  The empty linked list, 'this.children', is created upon construction, it is not null.
+     * @param childName Input parameter identifying the intended name of the child node to insert. The child is
+     *        assumed not to exist in the tree.
      */
-    public void insert(AwesomeTreeNode parent, String childName) {
-        // A tree's root is its root, regardless of who 'this' is, even if root.
+    public void insert(String childName) {
         AwesomeTreeNode child = new AwesomeTreeNode(this, childName);
-        child.root = parent.root;
-
-        // Add the child to 'this' parent.
         this.children.add(child);
     }
 
+    /**
+     * Insert a node into the tree. It is assumed that the 'this' pointer represents any given node in the tree,
+     * root or not, and that it is the intended parent of the child to insert. 
+     *
+     * @param c Input parameter identifying the intended child node to insert. The child is assumed not to
+     *        exist in the tree.
+     */
     public void insert(AwesomeTreeNode c) {
         AwesomeTreeNode n = new AwesomeTreeNode(this, c.name);
         this.children.add(n);
@@ -367,19 +370,41 @@ public class AwesomeTreeNode {
      * This function moves a node from one parent to another parent within the tree structure starting from this
      * node.
      *
+     * @param childName The name of the child node being bandied about.
+     * @param from Input string denoting the name of the parent from which the child will be taken.
+     * @param to   Input string denoting the name of the parent to which the child will be given.
+     *
      * ASSUMPTIONS:
      *
      *    1) This node is the starting point and is not the node to move.
-     *    2) The intended destination parent node exists in the tree structure at this node or below.
-     *    3) The child node exists in the tree structure strictly below this node.
-     *
-     * @param parentName The new node to which the child node is assigned.
-     * @param childName The name of the node to move.
+     *    2) The node identified by 'childName' exists in the tree structure beneath the node identified by
+     *       'from'.
+     *    3) Both the node identified by 'from' and the node identified by 'to' exist in the tree structure
+     *       beneath this node.
      */
-    public void move(String parentName, String childName) {
-        AwesomeTreeNode parentNode = get(parentName);
-        AwesomeTreeNode childNode = pluck(childName);
+    public void move(String childName, String from, String to) {
+        AwesomeTreeNode fromNode = get(from);
+        AwesomeTreeNode toNode = get(to);
+        AwesomeTreeNode childNode = fromNode.pluck(childName);
 
-        parentNode.children.add(childNode);
+        toNode.insert(childNode);
+    }
+
+    /**
+     * This function moves a node from one parent to another parent within the tree structure starting from this
+     * node.
+     *
+     * @param childName The name of the child node being bandied about.
+     * @param from      Input node from which the child will be taken.
+     * @param to        Input node to which the child will be given.
+     *
+     * ASSUMPTIONS:
+     *
+     *    1) This node is the starting point and is not the node to move.
+     *    2) The node identified by 'childName' exists in the tree structure beneath 'from'.
+     *    3) Both the 'from' and 'to' exist in the tree structure beneath this node.
+     */
+    public void move(String childName, AwesomeTreeNode from, AwesomeTreeNode to) {
+        move(childName, from.name, to.name);
     }
 }
