@@ -371,15 +371,54 @@ public class AwesomeTreeNode {
      * node.
      *
      * @param childName The name of the child node being bandied about.
-     * @param from Input string denoting the name of the parent from which the child will be taken.
-     * @param to   Input string denoting the name of the parent to which the child will be given.
+     * @param from      Input node from which the child will be taken.
+     * @param to        Input node to which the child will be given.
      *
      * ASSUMPTIONS:
      *
+     *    1) ROOT CANNOT BE MOVED!! (in the this delivery).
+     *    2) This node is the starting point and is not the node to move.
+     *    3) The node identified by 'childName' exists in the tree structure beneath 'from'.
+     *    4) Both 'from' and 'to' exist in the tree structure beneath this node.
+     */
+    public void move(String childName, AwesomeTreeNode fromNode, AwesomeTreeNode toNode) {
+        move(childName, fromNode.name, toNode.name);
+    }
+
+    /**
+     * This function moves a node from one parent to another parent within the tree structure starting from this
+     * node.
+     *
+     * @param childNode    Input node of the child node being bandied about.
+     * @param from  Input node from which the child will be taken.
+     * @param to    Input node to which the child will be given.
+     *
+     * ASSUMPTIONS:
+     *
+     *    1) ROOT CANNOT BE MOVED!! (in the this delivery).
+     *    2) This node is the starting point and is not the node to move.
+     *    3) The 'childNode' exists in the tree structure beneath 'from'.
+     *    4) Both 'from' and 'to' exist in the tree structure beneath this node.
+     */
+    public void move(AwesomeTreeNode childNode, AwesomeTreeNode fromNode, AwesomeTreeNode toNode) {
+        move(childNode.name, fromNode.name, toNode.name);
+    }
+
+    /**
+     * This function moves a node from one parent to another parent within the tree structure starting from this
+     * node.
+     *
+     * @param childName The name of the child node being bandied about.
+     * @param from   Input string denoting the name of the parent from which the child will be taken.
+     * @param to     Input string denoting the name of the parent to which the child will be given.
+     *
+     * ASSUMPTIONS:
+     *
+     *    1) ROOT CANNOT BE MOVED!! (in the this delivery).
      *    1) This node is the starting point and is not the node to move.
      *    2) The node identified by 'childName' exists in the tree structure beneath the node identified by
      *       'from'.
-     *    3) Both the node identified by 'from' and the node identified by 'to' exist in the tree structure
+     *    4) Both the node identified by 'from' and the node identified by 'to' exist in the tree structure
      *       beneath this node.
      */
     public void move(String childName, String from, String to) {
@@ -388,23 +427,5 @@ public class AwesomeTreeNode {
         AwesomeTreeNode childNode = fromNode.pluck(childName);
 
         toNode.insert(childNode);
-    }
-
-    /**
-     * This function moves a node from one parent to another parent within the tree structure starting from this
-     * node.
-     *
-     * @param childName The name of the child node being bandied about.
-     * @param from      Input node from which the child will be taken.
-     * @param to        Input node to which the child will be given.
-     *
-     * ASSUMPTIONS:
-     *
-     *    1) This node is the starting point and is not the node to move.
-     *    2) The node identified by 'childName' exists in the tree structure beneath 'from'.
-     *    3) Both the 'from' and 'to' exist in the tree structure beneath this node.
-     */
-    public void move(String childName, AwesomeTreeNode from, AwesomeTreeNode to) {
-        move(childName, from.name, to.name);
     }
 }

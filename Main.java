@@ -89,13 +89,18 @@ public class Main {
         // MOVE: Jim from Dagny to Ragnar
         root.move("Taggart, James",
                   "Taggart, Dagny",
-                  "Danneskjold, Ragnar");
+                  "Galt, John");
         root.printTree();
 
         // MOVE: Demote Ragnar from VP to Office Admin (promoting all of Ragnar's direct reports to VP!?)
-        AwesomeTreeNode fromNode = root.get(root.name);
+        AwesomeTreeNode fromNode = root.get("Galt, John");
         AwesomeTreeNode toNode = root.get("Taggart, Dagny");
         root.move("Danneskjold, Ragnar", fromNode, toNode);
+        root.printTree();
+
+        // MOVE: Build up Dagny's team a bit. Move Ken from John to Dagny
+        AwesomeTreeNode childNode = root.get("Dannager, Ken");
+        root.move(childNode, fromNode, toNode);
         root.printTree();
     }
 }
