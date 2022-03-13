@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.awesomeco;
+package org.springframework.samples.petclinic.amazingco;
 
 import java.util.List;
 
@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Jason deMello
  */
 @Controller
-public class AwesomeCoController {
+public class AmazingCoController {
 
-	@GetMapping({ "/awesomeco" })
-	public String awesomeco(@RequestParam(name = "name", required = false, defaultValue = "deMello") String name,
+	@GetMapping({ "/amazingco" })
+	public String amazingco(@RequestParam(name = "name", required = false, defaultValue = "Mario") String name,
 			Model model) {
 		model.addAttribute("name", name);
-		return "awesomeco";
+		return "amazingco";
 	}
 
 }
