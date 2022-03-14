@@ -23,14 +23,14 @@ class AmazingCoController {
 
 	private final EmployeeRepository employeeRepo;
 
-	private static Employees employees = new Employees();
+	private Employees employees = new Employees();
 
 	public AmazingCoController(EmployeeRepository employeeRepo) {
 		this.employeeRepo = employeeRepo;
 
 		List<Employee> employeeList = employees.getEmployeeList();
 		employeeList.addAll(this.employeeRepo.findAll());
-		employees.buildTree(employeeList);
+		employees = employees.buildTree(employeeList);
 		employees.printTree();
 	}
 
@@ -62,7 +62,6 @@ class AmazingCoController {
 	public @ResponseBody Employees showResourcesEmployeeList() {
 		// Here we are returning an object of type 'Employees' rather than a collection of
 		// Employee objects so it is simpler for JSon/Object mapping
-		Employees employees = new Employees();
 		employees.getEmployeeList().addAll(this.employeeRepo.findAll());
 		return employees;
 	}

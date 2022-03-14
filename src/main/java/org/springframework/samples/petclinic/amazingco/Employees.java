@@ -67,6 +67,8 @@ public class Employees {
 	/**
 	 * Constructor with neither root nor parent.
 	 * @param n The name of this node.
+	 *
+	 * ASSUMPTION: This constructor assumes that this is its own root.
 	 */
 	Employees(String n) {
 		height = 0;
@@ -151,27 +153,28 @@ public class Employees {
 	 * This function prints out some information of a 'this' node.
 	 */
 	public void printNode() {
+		int numSpaces = height * 4;
 		System.out.print("== ");
-		for (int i = 0; i < height; i++) {
-			System.out.print("\t");
+		for (int i = 0; i < numSpaces; i++) {
+			System.out.print(" ");
 		}
 		System.out.println("name   : " + name);
 
 		System.out.print("== ");
-		for (int i = 0; i < height; i++) {
-			System.out.print("\t");
+		for (int i = 0; i < numSpaces; i++) {
+			System.out.print(" ");
 		}
 		System.out.println("height : " + height);
 
 		System.out.print("== ");
-		for (int i = 0; i < height; i++) {
-			System.out.print("\t");
+		for (int i = 0; i < numSpaces; i++) {
+			System.out.print(" ");
 		}
 		System.out.println("root   : " + ((root == null) ? "null" : root.name));
 
 		System.out.print("== ");
-		for (int i = 0; i < height; i++) {
-			System.out.print("\t");
+		for (int i = 0; i < numSpaces; i++) {
+			System.out.print(" ");
 		}
 		System.out.println("parent : " + ((parent == null) ? "null" : parent.name));
 	}
@@ -475,22 +478,31 @@ public class Employees {
 
 	/**
 	 * This function builds a tree from a Collection.
-	 * @param collection The collection from which the tree is populated.
-	 *
-	 * ASSUMPTION: The first item in the collection is the root.
-	 *
-	 * CONSIDERATION: That's a bad assumption. A more robust solution would serialize the
-	 * collection in a way meaningfull to the tree such that the solution can remain
-	 * generic.
+	 * @param employeeList The list from which the tree is populated.
+	 * @retuen The root of the tree.
 	 */
-	public void buildTree(List<Employee> employeeList) {
+	public Employees buildTree(List<Employee> employeeList) {
 		System.out.print("\n=======================================================");
 		System.out.println("======================================================");
+		System.out.println("== Building tree from list");
+		System.out.println("== ");
 		IntStream.range(0, employeeList.size()).forEachOrdered(i -> {
 			System.out.println("== MGR " + employeeList.get(i).getManagerName() + " / EMP "
 					+ employeeList.get(i).getEmployeeName());
+
+			String strID = employeeList.get(i).getEmployeeName();
+			String strParent = employeeList.get(i).getManagerName();
+			if (strID.equalsIgnoreCase(strParent)) {
+				root = new Employees(strID);
+			}
+			else {
+				Employees node = root.get(strParent);
+				node.insert(strID);
+			}
 		});
 		System.out.println("==");
+
+		return root;
 	}
 
 }
