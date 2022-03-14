@@ -10,14 +10,14 @@
 <table id="employees" class="table table-striped">
   <thead>
   <tr>
-    <th>Employee</th>
     <th>Manager</th>
+    <th>Employee</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="employee : ${listEmployees}">
-    <td th:text="${employee.employeeName}"/></td>
     <td th:text="${employee.managerName}"/></td>
+    <td th:text="${employee.employeeName}"/></td>
   </tr>
   </tbody>
 </table>
