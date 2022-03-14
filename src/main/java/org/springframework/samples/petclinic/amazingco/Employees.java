@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Queue;
 import java.util.stream.IntStream;
 
+import org.springframework.data.domain.Page;
+
 /**
  * Simple domain object representing a list of employees. Mostly here to be used for the
  * 'employees' {@link org.springframework.web.servlet.view.xml.MarshallingView}.
@@ -18,6 +20,20 @@ import java.util.stream.IntStream;
  */
 @XmlRootElement
 public class Employees {
+
+	private List<Employee> employees;
+
+	/**
+	 * This is a helper function to return a list form of employess (a list of even one
+	 * node is still a list).
+	 */
+	@XmlElement
+	public List<Employee> getEmployeeList() {
+		if (employees == null) {
+			employees = new ArrayList<>();
+		}
+		return employees;
+	}
 
 	// This variable is checked before printing debug statements.
 	//
@@ -457,11 +473,24 @@ public class Employees {
 		toNode.insert(childNode);
 	}
 
-	@XmlElement
-	public List<Employee> getEmployeeList() {
-		// TODO[JHD]: Convert tree into list to serve up in HTTP request.
-		List<Employee> employees = new ArrayList<>();
-		return employees;
+	/**
+	 * This function builds a tree from a Collection.
+	 * @param collection The collection from which the tree is populated.
+	 *
+	 * ASSUMPTION: The first item in the collection is the root.
+	 *
+	 * CONSIDERATION: That's a bad assumption. A more robust solution would serialize the
+	 * collection in a way meaningfull to the tree such that the solution can remain
+	 * generic.
+	 */
+	public void buildTree(List<Employee> employeeList) {
+		System.out.print("\n=======================================================");
+		System.out.println("======================================================");
+		IntStream.range(0, employeeList.size()).forEachOrdered(i -> {
+			System.out.println("== MGR " + employeeList.get(i).getManagerName() + " / EMP "
+					+ employeeList.get(i).getEmployeeName());
+		});
+		System.out.println("==");
 	}
 
 }

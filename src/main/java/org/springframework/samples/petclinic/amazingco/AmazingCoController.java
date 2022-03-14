@@ -23,11 +23,14 @@ class AmazingCoController {
 
 	private final EmployeeRepository employeeRepo;
 
+	private static Employees employees = new Employees();
+
 	public AmazingCoController(EmployeeRepository employeeRepo) {
 		this.employeeRepo = employeeRepo;
 
-		Employees employees = new Employees();
-		employees.getEmployeeList().addAll(this.employeeRepo.findAll());
+		List<Employee> employeeList = employees.getEmployeeList();
+		employeeList.addAll(this.employeeRepo.findAll());
+		employees.buildTree(employeeList);
 		employees.printTree();
 	}
 
@@ -35,9 +38,7 @@ class AmazingCoController {
 	public String showEmployeeList(@RequestParam(defaultValue = "1") int page, Model model) {
 		// Here we are returning an object of type 'Employees' rather than a collection of
 		// Employee objects so it is simpler for Object-Xml mapping
-		Employees employees = new Employees();
 		Page<Employee> paginated = findPaginated(page);
-		employees.getEmployeeList().addAll(paginated.toList());
 		return addPaginationModel(page, paginated, model);
 
 	}
