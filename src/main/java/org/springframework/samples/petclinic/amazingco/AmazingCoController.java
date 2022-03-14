@@ -21,10 +21,10 @@ import org.springframework.samples.petclinic.amazingco.EmployeeRepository;
 @Controller
 class AmazingCoController {
 
-	private final EmployeeRepository employeesRepo;
+	private final EmployeeRepository employeeRepo;
 
-	public AmazingCoController(EmployeeRepository employeesRepo) {
-		this.employeesRepo = employeesRepo;
+	public AmazingCoController(EmployeeRepository employeeRepo) {
+		this.employeeRepo = employeeRepo;
 	}
 
 	@GetMapping("/employee_directory.html")
@@ -50,7 +50,7 @@ class AmazingCoController {
 	private Page<Employee> findPaginated(int page) {
 		int pageSize = 5;
 		Pageable pageable = PageRequest.of(page - 1, pageSize);
-		return employeesRepo.findAll(pageable);
+		return employeeRepo.findAll(pageable);
 	}
 
 	@GetMapping({ "/amazingco" })
@@ -58,7 +58,7 @@ class AmazingCoController {
 		// Here we are returning an object of type 'Employees' rather than a collection of
 		// Employee objects so it is simpler for JSon/Object mapping
 		Employees employees = new Employees();
-		employees.getEmployeeList().addAll(this.employeesRepo.findAll());
+		employees.getEmployeeList().addAll(this.employeeRepo.findAll());
 		return employees;
 	}
 
