@@ -25,6 +25,10 @@ class AmazingCoController {
 
 	public AmazingCoController(EmployeeRepository employeeRepo) {
 		this.employeeRepo = employeeRepo;
+
+		Employees employees = new Employees();
+		employees.getEmployeeList().addAll(this.employeeRepo.findAll());
+		employees.printTree();
 	}
 
 	@GetMapping("/employee_directory.html")
