@@ -1,3 +1,15 @@
+INSERT INTO employees VALUES (1, 'Galt', 'Galt') ON CONFLICT (id) DO NOTHING;
+INSERT INTO employees VALUES (2, 'Danneskjold', 'Galt') ON CONFLICT (id) DO NOTHING;
+INSERT INTO employees VALUES (3, 'TaggartD', 'Galt') ON CONFLICT (id) DO NOTHING;
+INSERT INTO employees VALUES (4, 'Anconia', 'Galt') ON CONFLICT (id) DO NOTHING;
+INSERT INTO employees VALUES (5, 'ReardonH', 'Danneskjold') ON CONFLICT (id) DO NOTHING;
+INSERT INTO employees VALUES (6, 'Willers', 'Danneskjold') ON CONFLICT (id) DO NOTHING;
+INSERT INTO employees VALUES (7, 'Dannager', 'Danneskjold') ON CONFLICT (id) DO NOTHING;
+INSERT INTO employees VALUES (8, 'TaggartJ', 'TaggartD') ON CONFLICT (id) DO NOTHING;
+INSERT INTO employees VALUES (9, 'ReardonL', 'Anconia') ON CONFLICT (id) DO NOTHING;
+INSERT INTO employees VALUES (10, 'Stadler', 'Anconia') ON CONFLICT (id) DO NOTHING;
+INSERT INTO employees VALUES (11, 'Brooks', 'Anconia') ON CONFLICT (id) DO NOTHING;
+
 INSERT INTO vets VALUES (1, 'James', 'Carter') ON CONFLICT (id) DO NOTHING;
 INSERT INTO vets VALUES (2, 'Helen', 'Leary') ON CONFLICT (id) DO NOTHING;
 INSERT INTO vets VALUES (3, 'Linda', 'Douglas') ON CONFLICT (id) DO NOTHING;

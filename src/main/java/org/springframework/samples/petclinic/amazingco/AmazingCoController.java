@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import org.springframework.samples.petclinic.vet.VetRepository;
-import org.springframework.samples.petclinic.vet.Vet;
-import org.springframework.samples.petclinic.vet.Vets;
+import org.springframework.samples.petclinic.amazingco.EmployeeRepository;
+import org.springframework.samples.petclinic.amazingco.Employee;
+import org.springframework.samples.petclinic.amazingco.Employees;
 
 /**
  * @author Jason deMello
@@ -21,44 +21,45 @@ import org.springframework.samples.petclinic.vet.Vets;
 @Controller
 class AmazingCoController {
 
-	private final VetRepository vets;
+	private final EmployeeRepository employees;
 
-	public AmazingCoController(VetRepository clinicService) {
-		this.vets = clinicService;
+	public AmazingCoController(EmployeeRepository employees) {
+		this.employees = employees;
 	}
 
 	@GetMapping("/employee_directory.html")
-	public String showVetList(@RequestParam(defaultValue = "1") int page, Model model) {
-		// Here we are returning an object of type 'Vets' rather than a collection of Vet
-		// objects so it is simpler for Object-Xml mapping
-		Vets vets = new Vets();
-		Page<Vet> paginated = findPaginated(page);
-		vets.getVetList().addAll(paginated.toList());
+	public String showEmployeeList(@RequestParam(defaultValue = "1") int page, Model model) {
+		// Here we are returning an object of type 'Employees' rather than a collection of
+		// Employee objects so it is simpler for Object-Xml mapping
+		Employees employees = new Employees();
+		Page<Employee> paginated = findPaginated(page);
+		employees.getEmployeeList().addAll(paginated.toList());
 		return addPaginationModel(page, paginated, model);
+
 	}
 
-	private String addPaginationModel(int page, Page<Vet> paginated, Model model) {
-		List<Vet> listVets = paginated.getContent();
+	private String addPaginationModel(int page, Page<Employee> paginated, Model model) {
+		List<Employee> listEmployees = paginated.getContent();
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", paginated.getTotalPages());
 		model.addAttribute("totalItems", paginated.getTotalElements());
-		model.addAttribute("listVets", listVets);
+		model.addAttribute("listEmployees", listEmployees);
 		return "amazingco/employeeList";
 	}
 
-	private Page<Vet> findPaginated(int page) {
+	private Page<Employee> findPaginated(int page) {
 		int pageSize = 5;
 		Pageable pageable = PageRequest.of(page - 1, pageSize);
-		return vets.findAll(pageable);
+		return employees.findAll(pageable);
 	}
 
 	@GetMapping({ "/amazingco" })
-	public @ResponseBody Vets showResourcesVetList() {
-		// Here we are returning an object of type 'Vets' rather than a collection of Vet
-		// objects so it is simpler for JSon/Object mapping
-		Vets vets = new Vets();
-		vets.getVetList().addAll(this.vets.findAll());
-		return vets;
+	public @ResponseBody Employees showResourcesEmployeeList() {
+		// Here we are returning an object of type 'Employees' rather than a collection of
+		// Employee objects so it is simpler for JSon/Object mapping
+		Employees employees = new Employees();
+		employees.getEmployeeList().addAll(this.employees.findAll());
+		return employees;
 	}
 
 }

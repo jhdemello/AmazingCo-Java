@@ -1,3 +1,4 @@
+DROP TABLE employees IF EXISTS;
 DROP TABLE vet_specialties IF EXISTS;
 DROP TABLE vets IF EXISTS;
 DROP TABLE specialties IF EXISTS;
@@ -6,6 +7,13 @@ DROP TABLE pets IF EXISTS;
 DROP TABLE types IF EXISTS;
 DROP TABLE owners IF EXISTS;
 
+
+CREATE TABLE employees (
+  id            INTEGER IDENTITY PRIMARY KEY,
+  employee_name VARCHAR(30),
+  manager_name  VARCHAR(30)
+);
+CREATE INDEX employees_name ON employees (employee_name);
 
 CREATE TABLE vets (
   id         INTEGER IDENTITY PRIMARY KEY,

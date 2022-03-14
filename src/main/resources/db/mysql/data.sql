@@ -1,3 +1,15 @@
+INSERT IGNORE INTO employees VALUES (1, 'Galt', 'Galt');
+INSERT IGNORE INTO employees VALUES (2, 'Danneskjold', 'Galt');
+INSERT IGNORE INTO employees VALUES (3, 'TaggartD', 'Galt');
+INSERT IGNORE INTO employees VALUES (4, 'Anconia', 'Galt');
+INSERT IGNORE INTO employees VALUES (5, 'ReardonH', 'Danneskjold');
+INSERT IGNORE INTO employees VALUES (6, 'Willers', 'Danneskjold');
+INSERT IGNORE INTO employees VALUES (7, 'Dannager', 'Danneskjold');
+INSERT IGNORE INTO employees VALUES (8, 'TaggartJ', 'TaggartD');
+INSERT IGNORE INTO employees VALUES (9, 'ReardonL', 'Anconia');
+INSERT IGNORE INTO employees VALUES (10, 'Stadler', 'Anconia');
+INSERT IGNORE INTO employees VALUES (11, 'Brooks', 'Anconia');
+
 INSERT IGNORE INTO vets VALUES (1, 'James', 'Carter');
 INSERT IGNORE INTO vets VALUES (2, 'Helen', 'Leary');
 INSERT IGNORE INTO vets VALUES (3, 'Linda', 'Douglas');

@@ -50,6 +50,11 @@
             <span>Home</span>
           </li>
 
+          <li th:replace="::menuItem ('/employee_directory.html','amazingco','employees','th-list','Employees')">
+            <span class="fa fa-th-list" aria-hidden="true"></span>
+            <span>Veterinarians</span>
+          </li>
+
           <li th:replace="::menuItem ('/owners/find','owners','find owners','search','Find owners')">
             <span class="fa fa-search" aria-hidden="true"></span>
             <span>Find owners</span>
