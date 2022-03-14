@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import org.springframework.samples.petclinic.amazingco.EmployeeRepository;
 import org.springframework.samples.petclinic.amazingco.Employee;
 import org.springframework.samples.petclinic.amazingco.Employees;
+import org.springframework.samples.petclinic.amazingco.EmployeeRepository;
 
 /**
  * @author Jason deMello

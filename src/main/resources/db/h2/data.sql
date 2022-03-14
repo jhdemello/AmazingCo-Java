@@ -1,14 +1,14 @@
-INSERT INTO employees VALUES (1, 'Galt', 'Galt');
-INSERT INTO employees VALUES (2, 'Danneskjold', 'Galt');
-INSERT INTO employees VALUES (3, 'TaggartD', 'Galt');
-INSERT INTO employees VALUES (4, 'Anconia', 'Galt');
-INSERT INTO employees VALUES (5, 'ReardonH', 'Danneskjold');
-INSERT INTO employees VALUES (6, 'Willers', 'Danneskjold');
-INSERT INTO employees VALUES (7, 'Dannager', 'Danneskjold');
-INSERT INTO employees VALUES (8, 'TaggartJ', 'TaggartD');
-INSERT INTO employees VALUES (9, 'ReardonL', 'Anconia');
-INSERT INTO employees VALUES (10, 'Stadler', 'Anconia');
-INSERT INTO employees VALUES (11, 'Brooks', 'Anconia');
+INSERT INTO employees VALUES (1, 'John Galt', 'John Galt');
+INSERT INTO employees VALUES (2, 'Ragnar Danneskjold', 'John Galt');
+INSERT INTO employees VALUES (3, 'Dagny Taggart', 'John Galt');
+INSERT INTO employees VALUES (4, 'Francisco d''Anconia', 'John Galt');
+INSERT INTO employees VALUES (5, 'Hank Reardon', 'Ragnar Danneskjold');
+INSERT INTO employees VALUES (6, 'Eddie Willers', 'Ragnar Danneskjold');
+INSERT INTO employees VALUES (7, 'Ken Dannager', 'Ragnar Danneskjold');
+INSERT INTO employees VALUES (8, 'James Taggart', 'Dagny Taggart');
+INSERT INTO employees VALUES (9, 'Lillie Reardon', 'Francisco d''Anconia');
+INSERT INTO employees VALUES (10, 'Robert Stadler', 'Francisco d''Anconia');
+INSERT INTO employees VALUES (11, 'Cherryl Brooks', 'Francisco d''Anconia');
 
 INSERT INTO vets VALUES (1, 'James', 'Carter');
 INSERT INTO vets VALUES (2, 'Helen', 'Leary');
