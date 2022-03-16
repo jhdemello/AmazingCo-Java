@@ -25,6 +25,6 @@ import org.springframework.samples.petclinic.model.Personnel;
  */
 @Entity
 @Table(name = "employees")
-public class Employee extends Personnel {
+public class AmazingEmployee extends Personnel {
 
 }
