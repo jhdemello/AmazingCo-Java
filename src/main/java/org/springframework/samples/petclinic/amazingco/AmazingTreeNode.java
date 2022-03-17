@@ -464,7 +464,7 @@ public class AmazingTreeNode<T> implements Cloneable {
 		}
 		else {
 			IntStream.range(0, node.children.size()).forEachOrdered(i -> {
-				list.addAll(list.toList(children.get(i)));
+				list.addAll(children.get(i).toList(children.get(i)));
 			});
 		}
 
