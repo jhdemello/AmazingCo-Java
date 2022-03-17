@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
+import org.springframework.core.style.ToStringCreator;
 import org.springframework.samples.petclinic.model.Personnel;
 
 /**
@@ -26,5 +27,11 @@ import org.springframework.samples.petclinic.model.Personnel;
 @Entity
 @Table(name = "employees")
 public class AmazingEmployee extends Personnel {
+
+	@Override
+	public String toString() {
+		return new ToStringCreator(this).append("id", this.getId()).append("managerName", this.getManagerName())
+				.append("employeeName", this.getEmployeeName()).toString();
+	}
 
 }

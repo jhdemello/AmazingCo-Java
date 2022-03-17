@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.stream.IntStream;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 
 /**
@@ -21,25 +22,11 @@ import org.springframework.data.domain.Page;
 @XmlRootElement
 public class AmazingTreeNode<T> implements Cloneable {
 
-	private List<AmazingEmployee> amazingEmployees;
-
-	/**
-	 * This is a helper function to return a list form of employess (a list of even one
-	 * node is still a list).
-	 */
-	@XmlElement
-	public List<AmazingEmployee> getAmazingEmployeeList() {
-		if (amazingEmployees == null) {
-			amazingEmployees = new ArrayList<>();
-		}
-		return amazingEmployees;
-	}
-
 	// This variable is checked before printing debug statements.
 	//
 	// TRUE => Print debug statements
 	// FALSE => Do not print debug statements
-	private static Boolean debug = true;
+	private static Boolean debug = false;
 
 	// The height level of the current node in the tree.
 	int height = 0;
@@ -462,6 +449,27 @@ public class AmazingTreeNode<T> implements Cloneable {
 
 			toNode.insert(childNode);
 		}
+	}
+
+	/*
+	 * This function places tree nodes into a list in preorder form. TODO[JHD
+	 * (3/16/2022)]: This doesn't work. Find out why.
+	 */
+	public LinkedList<AmazingTreeNode<T>> toList(AmazingTreeNode<T> node) {
+		LinkedList<AmazingTreeNode<T>> list = new LinkedList<>();
+		System.out.println("**********************************************************************");
+		System.out.println("** toList():: " + node.id);
+		if (node.children.isEmpty()) {
+			list.add(node);
+		}
+		else {
+			IntStream.range(0, node.children.size()).forEachOrdered(i -> {
+				list.addAll(list.toList(children.get(i)));
+			});
+		}
+
+		return list;
+
 	}
 
 }
