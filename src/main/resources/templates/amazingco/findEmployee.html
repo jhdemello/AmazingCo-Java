@@ -1,0 +1,15 @@
+<html xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'amazingco')}">
+
+<body>
+
+  <h2>Find Employee</h2>
+
+  <form th:action="@{/amazingco/find_result}" th:object="${employee}" method="post"
+    class="form-horizontal" id="search-employee-form">
+    	<p>Employee: <input type="text" th:field="*{employeeName}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+  </form>
+
+</body>
+</html>

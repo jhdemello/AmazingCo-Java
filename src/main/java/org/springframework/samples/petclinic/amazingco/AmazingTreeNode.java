@@ -434,17 +434,16 @@ public class AmazingTreeNode<T> implements Cloneable {
 	public void move(String childId, String from, String to) {
 		String funcName = "[move(s, sFrom, sTo)]:: ";
 
+		if (childId.isEmpty() || from.isEmpty() && to.isEmpty()) {
+			return;
+		}
+
 		if (height != 0) {
 			System.out.println(funcName + "!!! WARNING: Moves can only be performed by the root node !!!");
 		}
 		else {
-			System.out.println(funcName + "sFrom: " + from);
 			AmazingTreeNode<T> fromNode = get(from);
-
-			System.out.println(funcName + "sTo: " + to);
 			AmazingTreeNode<T> toNode = get(to);
-
-			System.out.println(funcName + "ch: " + childId);
 			AmazingTreeNode<T> childNode = fromNode.pluck(this, childId);
 
 			toNode.insert(childNode);
@@ -457,8 +456,6 @@ public class AmazingTreeNode<T> implements Cloneable {
 	 */
 	public LinkedList<AmazingTreeNode<T>> toList(AmazingTreeNode<T> node) {
 		LinkedList<AmazingTreeNode<T>> list = new LinkedList<>();
-		System.out.println("**********************************************************************");
-		System.out.println("** toList():: " + node.id);
 		if (node.children.isEmpty()) {
 			list.add(node);
 		}

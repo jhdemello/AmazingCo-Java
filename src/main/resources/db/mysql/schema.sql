@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS employees (
   id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   employee_name VARCHAR(30),
   manager_name VARCHAR(30),
+  to_manager VARCHAR(30),
   INDEX(employee_name)
 ) engine=InnoDB;
 

@@ -20,6 +20,12 @@ public class Personnel extends BaseEntity {
 	@NotEmpty
 	private String managerName;
 
+	// [JHD(2022-03-17)]: Once again, out of time to do this correctly. I don't know
+	// Thymeleaf enough to pass the 'toManager' data to the "Move Employee" GET and
+	// POST methods by any other means at the moment.
+	@Column(name = "to_manager")
+	private String toManager;
+
 	public String getEmployeeName() {
 		return this.employeeName;
 	}
@@ -34,6 +40,14 @@ public class Personnel extends BaseEntity {
 
 	public void setManagerName(String managerName) {
 		this.managerName = managerName;
+	}
+
+	public String getToManager() {
+		return this.toManager;
+	}
+
+	public void setToManager(String toManager) {
+		this.toManager = toManager;
 	}
 
 }

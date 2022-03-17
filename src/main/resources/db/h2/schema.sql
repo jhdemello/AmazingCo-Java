@@ -10,7 +10,8 @@ DROP TABLE owners IF EXISTS;
 CREATE TABLE employees (
   id            INTEGER IDENTITY PRIMARY KEY,
   employee_name VARCHAR(30),
-  manager_name  VARCHAR(30)
+  manager_name  VARCHAR(30),
+  to_manager    VARCHAR(30)
 );
 CREATE INDEX employees_name ON employees (employee_name);
 
