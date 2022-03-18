@@ -1,14 +1,56 @@
-INSERT INTO employees VALUES (1, 'John Galt', 'John Galt', '') ON CONFLICT (id) DO NOTHING;
-INSERT INTO employees VALUES (2, 'Ragnar Danneskjold', 'John Galt', '') ON CONFLICT (id) DO NOTHING;
-INSERT INTO employees VALUES (3, 'Dagny Taggart', 'John Galt', '') ON CONFLICT (id) DO NOTHING;
-INSERT INTO employees VALUES (4, 'Francisco d''Anconia', 'John Galt', '') ON CONFLICT (id) DO NOTHING;
-INSERT INTO employees VALUES (5, 'Hank Reardon', 'Ragnar Danneskjold', '') ON CONFLICT (id) DO NOTHING;
-INSERT INTO employees VALUES (6, 'Eddie Willers', 'Ragnar Danneskjold', '') ON CONFLICT (id) DO NOTHING;
-INSERT INTO employees VALUES (7, 'Ken Dannager', 'Ragnar Danneskjold', '') ON CONFLICT (id) DO NOTHING;
-INSERT INTO employees VALUES (8, 'James Taggart', 'Dagny Taggart', '') ON CONFLICT (id) DO NOTHING;
-INSERT INTO employees VALUES (9, 'Lillie Reardon', 'Francisco d''Anconia', '') ON CONFLICT (id) DO NOTHING;
-INSERT INTO employees VALUES (10, 'Robert Stadler', 'Francisco d''Anconia', '') ON CONFLICT (id) DO NOTHING;
-INSERT INTO employees VALUES (11, 'Cherryl Brooks', 'Francisco d''Anconia', '') ON CONFLICT (id) DO NOTHING;
+/*********************************************************************************/
+/* Spring Boot Pet Clinic Employees (N-Ary Tree)                                 */
+/**/
+
+/* CEO */
+INSERT INTO employees VALUES (1, 'John', 'John', '') ON CONFLICT DO NOTHING;
+
+/* Vice-Presidents */
+INSERT INTO employees VALUES (2, 'Ragnar', 'John', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (3, 'Dagny', 'John', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (4, 'Francisco', 'John', '') ON CONFLICT DO NOTHING;
+
+/* Rangar */
+INSERT INTO employees VALUES (5, 'Hank', 'Ragnar', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (6, 'Eddie', 'Ragnar', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (7, 'Ken', 'Ragnar', '') ON CONFLICT DO NOTHING;
+
+/* Ragnar.Hank */
+INSERT INTO employees VALUES (8, 'Hugo', 'Hank', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (9, 'Austen', 'Hank', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (10, 'Tolstoy', 'Hank', '') ON CONFLICT DO NOTHING;
+
+/* Ragnar.Hank.Tolstoy */
+INSERT INTO employees VALUES (11, 'Penn', 'Tolstoy', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (12, 'Aurelius', 'Tolstoy', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (13, 'Brown', 'Tolstoy', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (14, 'Milton', 'Tolstoy', '') ON CONFLICT DO NOTHING;
+
+/* Ragnar.Hank.Tolstoy.Aurelius */
+INSERT INTO employees VALUES (15, 'Venus', 'Aurelius', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (16, 'Mars', 'Aurelius', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (17, 'Jupiter', 'Aurelius', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (18, 'Saturn', 'Aurelius', '') ON CONFLICT DO NOTHING;
+
+/* Dagny */
+INSERT INTO employees VALUES (19, 'James', 'Dagny', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (20, 'Axl', 'Dagny', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (21, 'Dizzy', 'Dagny', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (22, 'Slash', 'Dagny', '') ON CONFLICT DO NOTHING;
+
+/* Francisco */
+INSERT INTO employees VALUES (23, 'Lillie', 'Francisco', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (24, 'Robert', 'Francisco', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (25, 'Cherryl', 'Francisco', '') ON CONFLICT DO NOTHING;
+
+/* Francisco.Lillie */
+INSERT INTO employees VALUES (26, 'Darwin', 'Lillie', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (27, 'Plutarch', 'Lillie', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (28, 'Virgil', 'Lillie', '') ON CONFLICT DO NOTHING;
+
+/*********************************************************************************/
+/* Spring Boot Pet Clinic (Vets, Owners, & Pets)                                 */
+/**/
 
 INSERT INTO vets VALUES (1, 'James', 'Carter') ON CONFLICT (id) DO NOTHING;
 INSERT INTO vets VALUES (2, 'Helen', 'Leary') ON CONFLICT (id) DO NOTHING;
