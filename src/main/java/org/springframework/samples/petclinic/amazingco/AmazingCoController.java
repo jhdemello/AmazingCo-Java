@@ -34,6 +34,11 @@ class AmazingEmployeeController {
 
 	private static AmazingTreeNode<AmazingEmployee> employees = new AmazingTreeNode<>();
 
+	@GetMapping({ "/amazingco" })
+	public String welcome() {
+		return "redirect:/amazingco/employee_directory.html";
+	}
+
 	/**
 	 * This function builds a tree from a Collection.
 	 * @param employeeList The list from which the tree is populated.
@@ -95,18 +100,6 @@ class AmazingEmployeeController {
 		return employeeRepo.findAll(pageable);
 	}
 
-	@GetMapping({ "/amazingco" })
-	public @ResponseBody LinkedList<AmazingTreeNode<AmazingEmployee>> showResourcesAmazingEmployeeList() {
-		// Here we are returning an object of type 'AmazingEmployees' rather than a
-		// collection of AmazingEmployee objects so it is simpler for JSon/Object mapping
-		employees.printTree();
-
-		// LinkedList<AmazingEmployee> employeeList = new LinkedList<>();
-		// employeeList.addAll(this.employeeRepo.findAll());
-		// return employeeList;
-		return employees.toList(employees);
-	}
-
 	@GetMapping("/amazingco/find")
 	public String findEmployee(Model model) {
 		String funcName = "[AmazingCoController::findEmployee()]:: ";
@@ -120,7 +113,6 @@ class AmazingEmployeeController {
 	@PostMapping("/amazingco/find_result")
 	public String findEmployeeSubmit(@ModelAttribute AmazingEmployee employee, Model model) {
 		String funcName = "[AmazingCoController::findEmployeeSubmit()]:: ";
-		System.out.println(funcName + "Moving employee . . .");
 
 		AmazingTreeNode<AmazingEmployee> node = employees.get(employee.getEmployeeName());
 		if (node != null) {
@@ -150,24 +142,47 @@ class AmazingEmployeeController {
 		String funcName = "[AmazingCoController::moveEmployeeSubmit()]:: ";
 		System.out.println(funcName + ". . . .and we're walking, we're walking . . .");
 
+		// See ACTION: @/amazingco/move.
+
 		// Move the employee retrieved by ACTION: @/amazingco/move
 		String emp = employee.getEmployeeName();
 
-		// Even though 'getManager()' exists in the 'employee' instance, it is not
-		// captured by ACTION: @/amazingco/move. If the preference is to avoid duplication
-		// of information, perhaps retrieve 'employee's manager already recorded in the
-		// tree. There's got to be a better way to do this -- no time now.
 		AmazingTreeNode<AmazingEmployee> node = employees.get(emp);
 		if (node != null) {
 
+			// Even though 'getManager()' exists in the 'employee' instance, it is not
+			// captured by ACTION: @/amazingco/move. If the preference is to avoid
+			// duplication of information, perhaps retrieve 'employee's manager already
+			// recorded in the tree. There's got to be a better way to do this -- no
+			// time now.
 			String from = node.parentId;
 
-			// Pre-move debug print.
-			employees.printTree();
-
-			// See ACTION: @/amazingco/move.
-			// We HAVE to be told to whom the employee is being assigned.
+			// We HAVE to be told to whom the employee is being assigned, this cannot
+			// be derived from current data sources.
 			String to = employee.getToManager();
+
+			// Remove 'employee' from the database before re-assigning 'employee' to a
+			// new manager.
+
+			// Delete the employee from the database by ID.
+			//
+			// [JHD(2022-03-17)]: Late in the game and jumping thru hoops. Time to
+			// [JHD(2022-03-17)]: deliver . . . with a bug. This employee will not be
+			// [JHD(2022-03-17)]: removed from the database. The AmazingEmployee data
+			// [JHD(2022-03-17)]: should not have been duplicated in the tree. The
+			// [JHD(2022-03-17)]: AmazingEmployee's base identity might have served
+			// [JHD(2022-03-17)]: well here.
+			// [JHD(2022-03-17)]:
+			// [JHD(2022-03-17)]: employeeRepo.deleteByIdentity(employee.id);
+
+			// The @/amazing/move action has already gathered the employee and new manager
+			// (or "TO" manager) information, so update the AmazingEmployee manager to
+			// the new manager and update the database with 'employee'.
+			employee.setManagerName(to);
+
+			// Now that the employee has been assigned a new manager, update the
+			// database.
+			employeeRepo.save(employee);
 
 			// Moves are called from the root. A (rather flawed) design decision was to
 			// move all the subject employee's children to their grandparent node. This
@@ -176,9 +191,17 @@ class AmazingEmployeeController {
 			// node; therefore, the move is executed from the static root instance of
 			// 'employees'. Room for improvement here.
 			System.out.println(funcName + "Moving " + emp + " from " + from + " to " + to + ".");
+
+			// Pre-move debug print.
+			System.out.println(funcName + "== PRE-MOVE ============================");
+			employees.printTree();
+
+			// It's not designed to do this at the moment, but there should probably
+			// be a check here for success or failure . . .
 			employees.move(emp, from, to);
 
 			// Post-move debug print.
+			System.out.println(funcName + "== POST-MOVE ===========================");
 			employees.printTree();
 		}
 

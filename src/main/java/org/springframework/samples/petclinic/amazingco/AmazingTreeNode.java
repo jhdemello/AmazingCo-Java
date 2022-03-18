@@ -443,8 +443,13 @@ public class AmazingTreeNode<T> implements Cloneable {
 		}
 		else {
 			AmazingTreeNode<T> fromNode = get(from);
-			AmazingTreeNode<T> toNode = get(to);
+
+			// The destination node could be progeny of the node being moved. First
+			// pluck the child node from the tree (this has the side-effect of moving
+			// other nodes around in the tree), then insert the plucked node back into
+			// the re-arranged tree.
 			AmazingTreeNode<T> childNode = fromNode.pluck(this, childId);
+			AmazingTreeNode<T> toNode = get(to);
 
 			toNode.insert(childNode);
 		}

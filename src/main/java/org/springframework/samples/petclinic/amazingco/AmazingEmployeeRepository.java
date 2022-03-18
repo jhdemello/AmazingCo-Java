@@ -37,6 +37,16 @@ public interface AmazingEmployeeRepository extends Repository<AmazingEmployee, I
 	@Cacheable("amazingco")
 	Page<AmazingEmployee> findAll(Pageable pageable) throws DataAccessException;
 
-	;
+	/**
+	 * Save an {@link emp} to the data store, either inserting or updating it.
+	 * @param employee the {@link emp} to save
+	 */
+	void save(AmazingEmployee emp);
+
+	/**
+	 * Delete {@link id} from the data store.
+	 * @param id the {@link id} to delete
+	 */
+	void deleteById(int id);
 
 }

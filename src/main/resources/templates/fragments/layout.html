@@ -50,25 +50,19 @@
             <span>Home</span>
           </li>
 
-          <li th:replace="::menuItem ('/amazingco/employee_directory.html','amazingco','employees','th-list','Employees')">
+          <li th:replace="::menuItem ('/amazingco','amazingco','employees','th-list','Employees')">
             <span class="fa fa-th-list" aria-hidden="true"></span>
             <span>Veterinarians</span>
           </li>
 
-          <li th:replace="::menuItem ('/owners/find','owners','find owners','search','Find owners')">
+          <li th:replace="::menuItem ('/amazingco/find','amazingco','find employees','search','Find employees')">
             <span class="fa fa-search" aria-hidden="true"></span>
             <span>Find owners</span>
           </li>
 
-          <li th:replace="::menuItem ('/vets.html','vets','veterinarians','th-list','Veterinarians')">
-            <span class="fa fa-th-list" aria-hidden="true"></span>
-            <span>Veterinarians</span>
-          </li>
-
-          <li
-            th:replace="::menuItem ('/oups','error','trigger a RuntimeException to see how it is handled','exclamation-triangle','Error')">
-            <span class="fa exclamation-triangle" aria-hidden="true"></span>
-            <span>Error</span>
+          <li th:replace="::menuItem ('/amazingco/move','amazingco','move employees','search','Move employees')">
+            <span class="fa fa-search" aria-hidden="true"></span>
+            <span>Find owners</span>
           </li>
 
         </ul>
