@@ -1,14 +1,56 @@
-INSERT INTO employees VALUES (1, 'John Galt', 'John Galt', '');
-INSERT INTO employees VALUES (2, 'Ragnar Danneskjold', 'John Galt', '');
-INSERT INTO employees VALUES (3, 'Dagny Taggart', 'John Galt', '');
-INSERT INTO employees VALUES (4, 'Francisco d''Anconia', 'John Galt', '');
-INSERT INTO employees VALUES (5, 'Hank Reardon', 'Ragnar Danneskjold', '');
-INSERT INTO employees VALUES (6, 'Eddie Willers', 'Ragnar Danneskjold', '');
-INSERT INTO employees VALUES (7, 'Ken Dannager', 'Ragnar Danneskjold', '');
-INSERT INTO employees VALUES (8, 'James Taggart', 'Dagny Taggart', '');
-INSERT INTO employees VALUES (9, 'Lillie Reardon', 'Francisco d''Anconia', '');
-INSERT INTO employees VALUES (10, 'Robert Stadler', 'Francisco d''Anconia', '');
-INSERT INTO employees VALUES (11, 'Cherryl Brooks', 'Francisco d''Anconia', '');
+/*********************************************************************************/
+/* Spring Boot Pet Clinic Employees (N-Ary Tree)                                 */
+/**/
+
+/* CEO */
+INSERT INTO employees VALUES (1, 'John', 'John', '');
+
+/* Vice-Presidents */
+INSERT INTO employees VALUES (2, 'Ragnar', 'John', '');
+INSERT INTO employees VALUES (3, 'Dagny', 'John', '');
+INSERT INTO employees VALUES (4, 'Francisco', 'John', '');
+
+/* Rangar */
+INSERT INTO employees VALUES (5, 'Hank', 'Ragnar', '');
+INSERT INTO employees VALUES (6, 'Eddie', 'Ragnar', '');
+INSERT INTO employees VALUES (7, 'Ken', 'Ragnar', '');
+
+/* Ragnar.Hank */
+INSERT INTO employees VALUES (8, 'Hugo', 'Hank', '');
+INSERT INTO employees VALUES (9, 'Austen', 'Hank', '');
+INSERT INTO employees VALUES (10, 'Tolstoy', 'Hank', '');
+
+/* Ragnar.Hank.Tolstoy */
+INSERT INTO employees VALUES (11, 'Penn', 'Tolstoy', '');
+INSERT INTO employees VALUES (12, 'Aurelius', 'Tolstoy', '');
+INSERT INTO employees VALUES (13, 'Brown', 'Tolstoy', '');
+INSERT INTO employees VALUES (14, 'Milton', 'Tolstoy', '');
+
+/* Ragnar.Hank.Tolstoy.Aurelius */
+INSERT INTO employees VALUES (15, 'Venus', 'Aurelius', '');
+INSERT INTO employees VALUES (16, 'Mars', 'Aurelius', '');
+INSERT INTO employees VALUES (17, 'Jupiter', 'Aurelius', '');
+INSERT INTO employees VALUES (18, 'Saturn', 'Aurelius', '');
+
+/* Dagny */
+INSERT INTO employees VALUES (19, 'James', 'Dagny', '');
+INSERT INTO employees VALUES (20, 'Axl', 'Dagny', '');
+INSERT INTO employees VALUES (21, 'Dizzy', 'Dagny', '');
+INSERT INTO employees VALUES (22, 'Slash', 'Dagny', '');
+
+/* Francisco */
+INSERT INTO employees VALUES (23, 'Lillie', 'Francisco', '');
+INSERT INTO employees VALUES (24, 'Robert', 'Francisco', '');
+INSERT INTO employees VALUES (25, 'Cherryl', 'Francisco', '');
+
+/* Francisco.Lillie */
+INSERT INTO employees VALUES (26, 'Darwin', 'Lillie', '');
+INSERT INTO employees VALUES (27, 'Plutarch', 'Lillie', '');
+INSERT INTO employees VALUES (28, 'Virgil', 'Lillie', '');
+
+/*********************************************************************************/
+/* Spring Boot Pet Clinic (Vets, Owners, & Pets)                                 */
+/**/
 
 INSERT INTO vets VALUES (1, 'James', 'Carter');
 INSERT INTO vets VALUES (2, 'Helen', 'Leary');

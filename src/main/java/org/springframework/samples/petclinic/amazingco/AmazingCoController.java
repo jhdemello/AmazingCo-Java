@@ -182,7 +182,10 @@ class AmazingEmployeeController {
 
 			// Now that the employee has been assigned a new manager, update the
 			// database.
-			employeeRepo.save(employee);
+			//
+			// employeeRepo.save(employee);
+			//
+			// or not.
 
 			// Moves are called from the root. A (rather flawed) design decision was to
 			// move all the subject employee's children to their grandparent node. This
