@@ -3,12 +3,12 @@
 /**/
 
 /* CEO */
-INSERT INTO employees VALUES (1, 'Slidey McShady', 'Slidey McShady', '');
+INSERT INTO employees VALUES (1, 'Slidey McShadey', 'Slidey McShadey', '');
 
 /* Vice-Presidents */
-INSERT INTO employees VALUES (2, 'Ragnar', 'Slidey McShady', '');
-INSERT INTO employees VALUES (3, 'Dagny', 'Slidey McShady', '');
-INSERT INTO employees VALUES (4, 'Francisco', 'Slidey McShady', '');
+INSERT INTO employees VALUES (2, 'Ragnar', 'Slidey McShadey', '');
+INSERT INTO employees VALUES (3, 'Dagny', 'Slidey McShadey', '');
+INSERT INTO employees VALUES (4, 'Francisco', 'Slidey McShadey', '');
 
 /* Rangar */
 INSERT INTO employees VALUES (5, 'Hank', 'Ragnar', '');
