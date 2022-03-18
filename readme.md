@@ -1,6 +1,7 @@
 # Amazing Co Application (built from the Spring PetClinic Application) [![Build Status](https://github.com/spring-projects/spring-petclinic/actions/workflows/maven-build.yml/badge.svg)](https://github.com/spring-projects/spring-petclinic/actions/workflows/maven-build.yml)
 
-## Understanding the Spring Petclinic application with a few diagrams
+## Understanding the Spring Petclinic application with a few diagrams<br/>
+The AmazingCo implementation was folded into the Petclinic application, so the architecture presented here is still holistically relevent to the AmazingCo implementation.<br/><br/>
 <a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">See the presentation here</a>
 
 ## Running amazingco Using Docker
