@@ -29,23 +29,44 @@ You can then access amazingco here: http://localhost:8080/amazingco (which is a 
 > **_NOTE:_**<br/><br/>
 > **_In this incarnation of AmazingCo, the employee database and the in-memory representation are disconnected and not synchronized. There is a database intended for data persistence and there is in-memory representation of the data, but the marriage between the two have not occurred. However, the employee directory page is loaded from data initialized in the database, and on initialization, the data in that database is loaded into an in-memory n-ary tree. From there, FIND and MOVE operations are performed using the n-ary tree in memory and are reflected in 'stdout' (see comment above about running in a detached state and where to find information sent to 'stdout')._**<br/><br/>
 
-![employee_directory](https://user-images.githubusercontent.com/100491526/159077007-634da0e6-c628-41ec-91ce-8446316fcae8.jpg)
-![find_employees](https://user-images.githubusercontent.com/100491526/159082064-29a98c06-0c01-43b4-98a4-b715883b8c06.jpg)
-![move_employees](https://user-images.githubusercontent.com/100491526/159082074-c7717d5e-d394-4848-b278-f940d026991c.jpg)
-![nary_tree_init](https://user-images.githubusercontent.com/100491526/159082538-12220707-59f4-4861-b4c5-f821d2593d3f.jpg)
-![employee_found](https://user-images.githubusercontent.com/100491526/159083430-f8401eaa-a2ab-4b8e-93ee-9dfff3004a89.jpg)
-![employee_found_docker](https://user-images.githubusercontent.com/100491526/159083434-f4e1584b-81f4-4fe4-ac2f-b183233351b3.jpg)
-![employee_moved](https://user-images.githubusercontent.com/100491526/159084067-e2368456-0665-4c06-8a1e-dedc8e2c7ee1.jpg)
-
 Or you can run it from Maven directly using the Spring Boot Maven plugin. If you do this it will pick up changes that you make in the project immediately (changes to Java source files require a compile as well - most people use an IDE for this):
 
 ```
 ./mvnw spring-boot:run
 ```
 
-> NOTE: Windows users should set `git config core.autocrlf true` to avoid format assertions failing the build (use `--global` to set that flag globally).
+> NOTE: Windows users should set `git config core.autocrlf true` to avoid format assertions failing the build (use `--global` to set that flag globally).<br/>
+> NOTE: If you prefer to use Gradle, you can build the app using `./gradlew build` and look for the jar file in `build/libs`.<br/><br/>
 
-> NOTE: If you prefer to use Gradle, you can build the app using `./gradlew build` and look for the jar file in `build/libs`.
+### AmazingCo: INITIALIZATION<br/><br/>
+
+On initialization, the employee directory is pulled from the database and is loaded into both the GUI and into memory. The following two images reflect this. <br/><br/>
+
+#### GUI: Employee Directory on Initialization<br/>
+
+![employee_directory](https://user-images.githubusercontent.com/100491526/159077007-634da0e6-c628-41ec-91ce-8446316fcae8.jpg)<br/><br/>
+
+#### STDOUT: Employee Directory on Initialization<br/>
+
+![nary_tree_init](https://user-images.githubusercontent.com/100491526/159082538-12220707-59f4-4861-b4c5-f821d2593d3f.jpg)<br/><br/>
+
+### AmazingCo: FIND Employee<br/>
+
+The following reflects a search for Aurelius, with the search results posted back to the browser:<br/><br/>
+
+![employee_found](https://user-images.githubusercontent.com/100491526/159083430-f8401eaa-a2ab-4b8e-93ee-9dfff3004a89.jpg)<br/>
+
+The following reflects a search for Aurelius, with the search results directed to 'stdout', as observed thru Docker.
+
+> **_NOTE: This image illustrates that the node and all subnodes are retrieved from the n-ary tree._**<br/><br/>
+
+![employee_found_docker](https://user-images.githubusercontent.com/100491526/159083434-f4e1584b-81f4-4fe4-ac2f-b183233351b3.jpg)<br/><br/>
+
+### AmazingCo: MOVE Employee<br/>
+
+The following shows that Aurelius was moved from Tolstoy to Penn and that all of Aurelius's direct reports, Venus, Mars, Jupiter, and Saturn, were reassigned to Hank.<br/><br/>
+
+![employee_moved](https://user-images.githubusercontent.com/100491526/159084067-e2368456-0665-4c06-8a1e-dedc8e2c7ee1.jpg)<br/><br/>
 
 ## In case you find a bug/suggested improvement for AmazingCo
 Our issue tracker is available here: https://github.com/jhdemello/AmazingCo-Java/issues
