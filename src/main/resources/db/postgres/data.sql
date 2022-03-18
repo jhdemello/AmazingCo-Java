@@ -3,12 +3,12 @@
 /**/
 
 /* CEO */
-INSERT INTO employees VALUES (1, 'John', 'John', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (1, 'Slighty McCheaty', 'Slighty McCheaty', '') ON CONFLICT DO NOTHING;
 
 /* Vice-Presidents */
-INSERT INTO employees VALUES (2, 'Ragnar', 'John', '') ON CONFLICT DO NOTHING;
-INSERT INTO employees VALUES (3, 'Dagny', 'John', '') ON CONFLICT DO NOTHING;
-INSERT INTO employees VALUES (4, 'Francisco', 'John', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (2, 'Ragnar', 'Slighty McCheaty', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (3, 'Dagny', 'Slighty McCheaty', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (4, 'Francisco', 'Slighty McCheaty', '') ON CONFLICT DO NOTHING;
 
 /* Rangar */
 INSERT INTO employees VALUES (5, 'Hank', 'Ragnar', '') ON CONFLICT DO NOTHING;
@@ -34,9 +34,11 @@ INSERT INTO employees VALUES (18, 'Saturn', 'Aurelius', '') ON CONFLICT DO NOTHI
 
 /* Dagny */
 INSERT INTO employees VALUES (19, 'James', 'Dagny', '') ON CONFLICT DO NOTHING;
-INSERT INTO employees VALUES (20, 'Axl', 'Dagny', '') ON CONFLICT DO NOTHING;
-INSERT INTO employees VALUES (21, 'Dizzy', 'Dagny', '') ON CONFLICT DO NOTHING;
-INSERT INTO employees VALUES (22, 'Slash', 'Dagny', '') ON CONFLICT DO NOTHING;
+
+/* Dagny.James */
+INSERT INTO employees VALUES (20, 'Axl', 'James', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (21, 'Dizzy', 'James', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (22, 'Slash', 'James', '') ON CONFLICT DO NOTHING;
 
 /* Francisco */
 INSERT INTO employees VALUES (23, 'Lillie', 'Francisco', '') ON CONFLICT DO NOTHING;

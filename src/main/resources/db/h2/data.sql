@@ -3,12 +3,12 @@
 /**/
 
 /* CEO */
-INSERT INTO employees VALUES (1, 'John', 'John', '');
+INSERT INTO employees VALUES (1, 'Slighty McCheaty', 'Slighty McCheaty', '');
 
 /* Vice-Presidents */
-INSERT INTO employees VALUES (2, 'Ragnar', 'John', '');
-INSERT INTO employees VALUES (3, 'Dagny', 'John', '');
-INSERT INTO employees VALUES (4, 'Francisco', 'John', '');
+INSERT INTO employees VALUES (2, 'Ragnar', 'Slighty McCheaty', '');
+INSERT INTO employees VALUES (3, 'Dagny', 'Slighty McCheaty', '');
+INSERT INTO employees VALUES (4, 'Francisco', 'Slighty McCheaty', '');
 
 /* Rangar */
 INSERT INTO employees VALUES (5, 'Hank', 'Ragnar', '');
@@ -34,9 +34,11 @@ INSERT INTO employees VALUES (18, 'Saturn', 'Aurelius', '');
 
 /* Dagny */
 INSERT INTO employees VALUES (19, 'James', 'Dagny', '');
-INSERT INTO employees VALUES (20, 'Axl', 'Dagny', '');
-INSERT INTO employees VALUES (21, 'Dizzy', 'Dagny', '');
-INSERT INTO employees VALUES (22, 'Slash', 'Dagny', '');
+
+/* Dagny.James */
+INSERT INTO employees VALUES (20, 'Axl', 'James', '');
+INSERT INTO employees VALUES (21, 'Dizzy', 'James', '');
+INSERT INTO employees VALUES (22, 'Slash', 'James', '');
 
 /* Francisco */
 INSERT INTO employees VALUES (23, 'Lillie', 'Francisco', '');

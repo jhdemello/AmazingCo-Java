@@ -3,12 +3,12 @@
 /**/
 
 /* CEO */
-INSERT IGNORE INTO employees VALUES (1, 'John', 'John', '');
+INSERT IGNORE INTO employees VALUES (1, 'Slighty McCheaty', 'Slighty McCheaty', '');
 
 /* Vice-Presidents */
-INSERT IGNORE INTO employees VALUES (2, 'Ragnar', 'John', '');
-INSERT IGNORE INTO employees VALUES (3, 'Dagny', 'John', '');
-INSERT IGNORE INTO employees VALUES (4, 'Francisco', 'John', '');
+INSERT IGNORE INTO employees VALUES (2, 'Ragnar', 'Slighty McCheaty', '');
+INSERT IGNORE INTO employees VALUES (3, 'Dagny', 'Slighty McCheaty', '');
+INSERT IGNORE INTO employees VALUES (4, 'Francisco', 'Slighty McCheaty', '');
 
 /* Rangar */
 INSERT IGNORE INTO employees VALUES (5, 'Hank', 'Ragnar', '');
@@ -34,9 +34,11 @@ INSERT IGNORE INTO employees VALUES (18, 'Saturn', 'Aurelius', '');
 
 /* Dagny */
 INSERT IGNORE INTO employees VALUES (19, 'James', 'Dagny', '');
-INSERT IGNORE INTO employees VALUES (20, 'Axl', 'Dagny', '');
-INSERT IGNORE INTO employees VALUES (21, 'Dizzy', 'Dagny', '');
-INSERT IGNORE INTO employees VALUES (22, 'Slash', 'Dagny', '');
+
+/* Dagny.James */
+INSERT IGNORE INTO employees VALUES (20, 'Axl', 'James', '');
+INSERT IGNORE INTO employees VALUES (21, 'Dizzy', 'James', '');
+INSERT IGNORE INTO employees VALUES (22, 'Slash', 'James', '');
 
 /* Francisco */
 INSERT IGNORE INTO employees VALUES (23, 'Lillie', 'Francisco', '');
