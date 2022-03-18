@@ -3,12 +3,12 @@
 /**/
 
 /* CEO */
-INSERT IGNORE INTO employees VALUES (1, 'Slighty McCheaty', 'Slighty McCheaty', '');
+INSERT IGNORE INTO employees VALUES (1, 'Slidey McShady', 'Slidey McShady', '');
 
 /* Vice-Presidents */
-INSERT IGNORE INTO employees VALUES (2, 'Ragnar', 'Slighty McCheaty', '');
-INSERT IGNORE INTO employees VALUES (3, 'Dagny', 'Slighty McCheaty', '');
-INSERT IGNORE INTO employees VALUES (4, 'Francisco', 'Slighty McCheaty', '');
+INSERT IGNORE INTO employees VALUES (2, 'Ragnar', 'Slidey McShady', '');
+INSERT IGNORE INTO employees VALUES (3, 'Dagny', 'Slidey McShady', '');
+INSERT IGNORE INTO employees VALUES (4, 'Francisco', 'Slidey McShady', '');
 
 /* Rangar */
 INSERT IGNORE INTO employees VALUES (5, 'Hank', 'Ragnar', '');

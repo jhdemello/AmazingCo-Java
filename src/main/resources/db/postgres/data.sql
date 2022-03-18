@@ -3,12 +3,12 @@
 /**/
 
 /* CEO */
-INSERT INTO employees VALUES (1, 'Slighty McCheaty', 'Slighty McCheaty', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (1, 'Slidey McShady', 'Slidey McShady', '') ON CONFLICT DO NOTHING;
 
 /* Vice-Presidents */
-INSERT INTO employees VALUES (2, 'Ragnar', 'Slighty McCheaty', '') ON CONFLICT DO NOTHING;
-INSERT INTO employees VALUES (3, 'Dagny', 'Slighty McCheaty', '') ON CONFLICT DO NOTHING;
-INSERT INTO employees VALUES (4, 'Francisco', 'Slighty McCheaty', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (2, 'Ragnar', 'Slidey McShady', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (3, 'Dagny', 'Slidey McShady', '') ON CONFLICT DO NOTHING;
+INSERT INTO employees VALUES (4, 'Francisco', 'Slidey McShady', '') ON CONFLICT DO NOTHING;
 
 /* Rangar */
 INSERT INTO employees VALUES (5, 'Hank', 'Ragnar', '') ON CONFLICT DO NOTHING;
