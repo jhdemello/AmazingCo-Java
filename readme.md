@@ -11,7 +11,7 @@ You can use the following command to build and run from a Docker image.
 docker-compose -f docker-compose.dev.yml up --build [-d]
 ```
 
-Running without the '-d' parameter directs 'stdout' to the console from which 'amazingco' was launched; running with the '-d' parameter directs 'stdout' to the Docker client. This can be viewed under the 'Logs' tab under the 'amazingco-java_service_1' service.
+The '-d' parameter runs the AmazingCo container in a detached state. Running **_without_** the '-d' parameter is not detached and directs 'stdout' to the console from which 'amazingco' was launched; running **_with_** the '-d' parameter is detached and directs 'stdout' to the Docker client. This can be viewed under the 'Logs' tab under the 'amazingco-java_service_1' service. (See **_NOTE_** below under **_Running amazingco locally_**.)
 
 ## Running amazingco locally
 AmazingCo [Petclinic] is derived from a [Spring Boot](https://spring.io/guides/gs/spring-boot) application built using [Maven](https://spring.io/guides/gs/maven/). You can build a jar file and run it from the command line (it should work just as well with Java 8, 11 or 17):
@@ -24,7 +24,10 @@ cd AmazingCo-Java
 java -jar target/*.jar
 ```
 
-You can then access amazingco here: http://localhost:8080/amazingco
+You can then access amazingco here: http://localhost:8080/amazingco (which is a redirect to 'employee_directory.html' within).
+
+> **_NOTE:_**<br/><br/>
+> **_In this incarnation of AmazingCo, the employee database and the in-memory representation are disconnected and not synchronized. There is a database intended for data persistence and there is in-memory representation of the data, but the marriage between the two have not occurred. However, the employee directory page is loaded from data initialized in the database, and on initialization, the data in that database is loaded into an in-memory n-ary tree. From there, FIND and MOVE operations are performed using the n-ary tree in memory and are reflected in 'stdout' (see comment above about running in a detached state and where to find information sent to 'stdout')._**<br/><br/>
 
 ![employee_directory](https://user-images.githubusercontent.com/100491526/159077007-634da0e6-c628-41ec-91ce-8446316fcae8.jpg)
 
