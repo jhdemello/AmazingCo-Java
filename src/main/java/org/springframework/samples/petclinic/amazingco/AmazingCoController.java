@@ -222,8 +222,7 @@ class AmazingEmployeeController {
 			System.out.println(funcName + "Employee " + employeeName + " not found.");
 		}
 
-		System.out.println("Re-directing to the employee directory.");
-		return "redirect:/amazingco/employee_directory.html";
+		return "redirect:/amazingco/move";
 	}
 
 	@GetMapping("/amazingco/employees")
