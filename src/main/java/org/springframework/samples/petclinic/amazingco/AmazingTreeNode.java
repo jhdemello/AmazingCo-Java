@@ -26,7 +26,7 @@ public class AmazingTreeNode<T> implements Cloneable {
 	//
 	// TRUE => Print debug statements
 	// FALSE => Do not print debug statements
-	private static Boolean debug = false;
+	private static Boolean debug = true;
 
 	// The height level of the current node in the tree.
 	int height = 0;
@@ -102,6 +102,14 @@ public class AmazingTreeNode<T> implements Cloneable {
 	}
 
 	/**
+	 * This function determines whether or not this instance has child nodes.
+	 * @return True if this node has children, false if not.
+	 */
+	public Boolean hasChildren() {
+		return ((!this.children.isEmpty()) ? true : false);
+	}
+
+	/**
 	 * This function prints out some information of a 'this' node.
 	 */
 	public void printNode() {
@@ -168,7 +176,7 @@ public class AmazingTreeNode<T> implements Cloneable {
 
 		// Print this node and its progeny depth-first in the family tree.
 		this.printNode();
-		if (!children.isEmpty()) {
+		if (this.hasChildren()) {
 			// Recursive case : Node does not meet search criteria =>
 			// -- There's at least one child,
 			// -- Print recursively
@@ -223,7 +231,7 @@ public class AmazingTreeNode<T> implements Cloneable {
 	 * @return The node identified by the parameter 'id'.
 	 */
 	public AmazingTreeNode<T> get(String id) {
-		String funcName = "[AmazingTreeNode<T>.get()]:: ";
+		String funcName = "[AmazingTreeNode<T>.get(" + id + ")]:: ";
 		AmazingTreeNode<T> retval = null;
 
 		if (this.id.equalsIgnoreCase(id)) {
@@ -233,27 +241,23 @@ public class AmazingTreeNode<T> implements Cloneable {
 			}
 			retval = this;
 		}
-		else if (!this.children.isEmpty()) {
+		else if (this.hasChildren()) {
 			// Recursive case : Node does not meet search criteria =>
 			// -- There's at least one child at this point,
 			// -- Search children recursively
 			if (isDebugOn()) {
-				System.out.println(funcName + "RECURSIVE CASE[Entry]: Search children for " + id + " under " + this.id);
+				System.out.println(funcName + "RECURSIVE CASE[NOT FOUND]: " + "Searching children for " + id + " under "
+						+ this.id);
 			}
 
 			int i = 0;
 			int ub = this.children.size();
 			while ((retval == null) && (i < ub)) {
-				retval = this.children.get(i).get(id);
 				if (isDebugOn()) {
-					System.out.print(funcName + "   retval[" + i + "]: " + this.children.get(i).id + " -> ");
-					if (retval == null) {
-						System.out.println("NOT FOUND");
-					}
-					else {
-						System.out.println("FOUND");
-					}
+					System.out.println(funcName + "LINE NUMBER: " + new Throwable().getStackTrace()[0].getLineNumber());
+
 				}
+				retval = this.children.get(i).get(id);
 
 				if ((retval != null) && (retval.id.equalsIgnoreCase(id))) {
 					i = ub;
@@ -279,62 +283,62 @@ public class AmazingTreeNode<T> implements Cloneable {
 	 * @param id The id of the node to retrieve.
 	 * @return The node identified by the parameter 'id', sans children.
 	 */
-	public AmazingTreeNode<T> pluck(AmazingTreeNode<T> root, String id) {
-		String funcName = "[AmazingTreeNode<T>.pluck()]:: ";
+	public AmazingTreeNode<T> pluck(AmazingTreeNode<T> root, String id) throws CloneNotSupportedException {
+		String funcName = "[AmazingTreeNode<T>.pluck(" + id + ")]:: ";
 		AmazingTreeNode<T> retval = null;
 
-		if (this.id.equalsIgnoreCase(id)) {
-			// Base case: Node found => add new node to list of children and return
+		if (this.id.equalsIgnoreCase(id) && this.hasChildren()) {
+			// BASE CASE: Node found w/children. Pluck this node and continue with a deep
+			// copy.
 			if (isDebugOn()) {
-				System.out.println(funcName + "BASE CASE[FOUND]: " + this.id);
-				System.out.println(funcName + "   Number of Children: " + this.children.size());
+				System.out.println(funcName + "BASE CASE[FOUND w/children]: " + this.id);
 			}
 
-			// Append this.children to parent.children
+			if (isDebugOn()) {
+				System.out.println(
+						funcName + "BASE CASE[FOUND w/children]: " + "ROOT: " + root.id + " PARENT: " + this.parentId);
+			}
+
+			AmazingTreeNode<T> parent = root.get(this.parentId);
+			if (isDebugOn()) {
+				System.out.println(funcName + "BASE CASE[FOUND w/children]: ");
+				System.out.println(funcName + "LINE NUMBER: " + new Throwable().getStackTrace()[0].getLineNumber());
+			}
+
 			IntStream.range(0, this.children.size()).forEachOrdered(i -> {
+				AmazingTreeNode<T> child = this.children.get(i);
+
+				if (isDebugOn()) {
+					System.out.println(funcName + "BASE CASE[FOUND w/children]: " + this.id + "[" + i + "]: " + child.id
+							+ " / " + child.height + " / " + child.parentId);
+				}
+
 				try {
-					AmazingTreeNode<T> child = (AmazingTreeNode<T>) this.children.getFirst().clone();
-
-					if (isDebugOn()) {
-						System.out.println(funcName + "      [" + i + "]: " + child.id);
-					}
-
-					AmazingTreeNode<T> parent = root.get(this.parentId);
-					child.height = parent.height + 1;
-					child.rootId = parent.rootId;
-					child.parentId = parent.parentId;
-					parent.children.add(child);
-
-					this.children.removeFirst();
+					parent.children.add((AmazingTreeNode<T>) child.copy(child));
 				}
 				catch (Exception e) {
 					e.printStackTrace();
 				}
 			});
 
+			this.children.clear();
 			retval = this;
+			System.out.println(
+					funcName + "BASE CASE[FOUND w/children]: retval " + ((retval == null) ? "null" : retval.id));
 		}
-		else if (!this.children.isEmpty()) {
-			// Recursive case : Node does not meet search criteria =>
-			// -- There's at least one child at this point,
-			// -- Search children recursively
+		else if (this.hasChildren()) {
+			// RECURSIVE CASE: Node not found, search children for node, if any.
 			if (isDebugOn()) {
-				System.out.println(funcName + "RECURSIVE CASE[Entry]: Search children for " + id + " under " + this.id);
+				System.out.println(funcName + "RECURSIVE CASE: Search children for " + id + " under " + this.id);
 			}
 
 			int i = 0;
 			int ub = this.children.size();
 			while ((retval == null) && (i < ub)) {
-				retval = this.children.get(i).pluck(root, id);
 				if (isDebugOn()) {
-					System.out.print(funcName + "   retval[" + i + "]: " + this.children.get(i).id + " -> ");
-					if (retval == null) {
-						System.out.println("NOT FOUND");
-					}
-					else {
-						System.out.println("FOUND");
-					}
+					System.out.println(funcName + "RECURSIVE PLUCK[" + this.id + "]" + this.children.get(i).id);
 				}
+				retval = this.children.get(i).pluck(root, id);
 
 				if ((retval != null) && (this.id.equalsIgnoreCase(retval.parentId))) {
 					this.children.remove(i);
@@ -369,6 +373,41 @@ public class AmazingTreeNode<T> implements Cloneable {
 	}
 
 	/*
+	 * This method returns a deep copy of this AmazingTreeNode instance, making the the
+	 * assumption that the destination node is going into the 'parent's list of children.
+	 *
+	 * @param parent The node whos list of children to which src is being added
+	 *
+	 * @param src The node from which the deep copy is performed.
+	 *
+	 * ASSUMPTION: The complex types for this instance are empty and already allocated.
+	 */
+	public Object copy(AmazingTreeNode<T> parent, AmazingTreeNode<T> src) throws CloneNotSupportedException {
+		String funcName = "[AmazingTreeNode<T>.copy(" + parent.id + ", " + src.id + ")]:: ";
+		AmazingTreeNode<T> dst = (AmazingTreeNode<T>) src.clone();
+		if (this.hasChildren()) {
+			IntStream.range(0, src.children.size()).forEachOrdered(i -> {
+				try {
+					if (isDebugOn()) {
+						System.out.println(funcName + dst.id + "[" + i + "]: " + src.children.get(i).id);
+					}
+
+					AmazingTreeNode<T> child = (AmazingTreeNode<T>) src.copy(src.children.get(i));
+					child.height = parent.height + 1;
+					child.rootId = parent.rootId;
+					child.parentId = parent.id;
+					dst.children.add((AmazingTreeNode<T>) child);
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			});
+		}
+
+		return dst;
+	}
+
+	/*
 	 * This method returns a deep copy of this AmazingTreeNode instance. (The elements
 	 * themselves are copied.)
 	 *
@@ -379,14 +418,22 @@ public class AmazingTreeNode<T> implements Cloneable {
 	 * ASSUMPTION: The complex types for this instance are empty and already allocated.
 	 */
 	public Object copy(AmazingTreeNode<T> src) throws CloneNotSupportedException {
+		String funcName = "[AmazingTreeNode<T>.copy(" + src.id + ")]:: ";
+
 		AmazingTreeNode<T> dst = (AmazingTreeNode<T>) src.clone();
-		if (src.children.isEmpty()) {
-			return this;
-		}
-		else {
+		if (src.hasChildren()) {
 			IntStream.range(0, src.children.size()).forEachOrdered(i -> {
 				try {
-					dst.children.add((AmazingTreeNode<T>) src.copy(src.children.get(i)));
+					if (isDebugOn()) {
+						System.out.println(funcName + dst.id + "[" + i + "]: " + src.children.get(i).id);
+					}
+
+					AmazingTreeNode<T> child = (AmazingTreeNode<T>) src.copy(src.children.get(i));
+					child.height = dst.height + 1;
+					child.rootId = dst.rootId;
+					child.parentId = dst.id;
+
+					dst.children.add(child);
 				}
 				catch (Exception e) {
 					e.printStackTrace();
@@ -432,9 +479,10 @@ public class AmazingTreeNode<T> implements Cloneable {
 	 * from the root.
 	 */
 	public void move(String childId, String from, String to) {
-		String funcName = "[move(s, sFrom, sTo)]:: ";
+		String funcName = "[move(" + childId + ")]:: From " + from + " to " + to;
 
-		if (childId.isEmpty() || from.isEmpty() && to.isEmpty()) {
+		System.out.println(funcName);
+		if (childId.isEmpty() || from.isEmpty() || to.isEmpty()) {
 			return;
 		}
 
@@ -442,16 +490,58 @@ public class AmazingTreeNode<T> implements Cloneable {
 			System.out.println(funcName + "!!! WARNING: Moves can only be performed by the root node !!!");
 		}
 		else {
+			// FROM
+			//
+			// This is a read-only operation, the tree remains unchanged.
+			if (isDebugOn()) {
+				System.out.println(funcName + "Searching for FROM node: " + from);
+			}
 			AmazingTreeNode<T> fromNode = get(from);
 
-			// The destination node could be progeny of the node being moved. First
-			// pluck the child node from the tree (this has the side-effect of moving
-			// other nodes around in the tree), then insert the plucked node back into
-			// the re-arranged tree.
-			AmazingTreeNode<T> childNode = fromNode.pluck(this, childId);
+			// CHILD
+			//
+			// Pluck the CHILD node before retrieving the TO node. This operation is
+			// read/write: the tree node
+			// has the potential to change because the TO node might exist beneath the
+			// CHILD node, thus
+			// rearranging all nodes beneath the child node plucked from the tree.
+			AmazingTreeNode<T> childNode = new AmazingTreeNode<>();
+			try {
+				if (isDebugOn()) {
+					System.out.println(funcName + "PLUCKING " + childId + " from " + fromNode.id);
+				}
+
+				childNode = fromNode.pluck(fromNode, childId);
+				if (isDebugOn()) {
+					// Print the new arragement.
+					System.out.println(funcName + "== POST-PLUCK ============================");
+					fromNode.printTree();
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			// TO
+			//
+			// The TO node is safe to retrieve now that the tree has already been
+			// rearranged.
+			if (isDebugOn()) {
+				System.out.println(funcName + "Searching for TO node " + to);
+			}
 			AmazingTreeNode<T> toNode = get(to);
 
+			// Adjust primitives in respect to the new parent.
+			childNode.height = toNode.height - 1;
+			childNode.rootId = toNode.rootId;
+			childNode.parentId = toNode.id;
+
+			// Now insert the child into the tree at its destination.
 			toNode.insert(childNode);
+			if (isDebugOn()) {
+				// Print the new arragement.
+				toNode.printTree();
+			}
 		}
 	}
 
@@ -461,7 +551,7 @@ public class AmazingTreeNode<T> implements Cloneable {
 	 */
 	public LinkedList<AmazingTreeNode<T>> toList(AmazingTreeNode<T> node) {
 		LinkedList<AmazingTreeNode<T>> list = new LinkedList<>();
-		if (node.children.isEmpty()) {
+		if (node.hasChildren()) {
 			list.add(node);
 		}
 		else {
