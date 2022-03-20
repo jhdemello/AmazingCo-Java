@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 
+sudo rm -rf target
 docker container stop amazingco-java_service_1 amazingco-java_mysqlserver_1
 docker container rm amazingco-java_service_1 amazingco-java_mysqlserver_1
 docker images | sort | grep none | awk '{ print $3 }' | xargs docker rmi

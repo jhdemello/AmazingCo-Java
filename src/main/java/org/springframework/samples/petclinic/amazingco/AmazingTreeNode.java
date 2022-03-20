@@ -26,7 +26,7 @@ public class AmazingTreeNode<T> implements Cloneable {
 	//
 	// TRUE => Print debug statements
 	// FALSE => Do not print debug statements
-	private static Boolean debug = true;
+	private static Boolean debug = false;
 
 	// The height level of the current node in the tree.
 	int height = 0;
@@ -307,14 +307,13 @@ public class AmazingTreeNode<T> implements Cloneable {
 
 			IntStream.range(0, this.children.size()).forEachOrdered(i -> {
 				AmazingTreeNode<T> child = this.children.get(i);
-
 				if (isDebugOn()) {
 					System.out.println(funcName + "BASE CASE[FOUND w/children]: " + this.id + "[" + i + "]: " + child.id
 							+ " / " + child.height + " / " + child.parentId);
 				}
 
 				try {
-					parent.children.add((AmazingTreeNode<T>) child.copy(child));
+					parent.children.add((AmazingTreeNode<T>) child.copy(parent, child));
 				}
 				catch (Exception e) {
 					e.printStackTrace();
@@ -385,18 +384,19 @@ public class AmazingTreeNode<T> implements Cloneable {
 	public Object copy(AmazingTreeNode<T> parent, AmazingTreeNode<T> src) throws CloneNotSupportedException {
 		String funcName = "[AmazingTreeNode<T>.copy(" + parent.id + ", " + src.id + ")]:: ";
 		AmazingTreeNode<T> dst = (AmazingTreeNode<T>) src.clone();
-		if (this.hasChildren()) {
+		dst.height = parent.height + 1;
+		dst.rootId = parent.rootId;
+		dst.parentId = parent.id;
+
+		if (src.hasChildren()) {
 			IntStream.range(0, src.children.size()).forEachOrdered(i -> {
 				try {
 					if (isDebugOn()) {
 						System.out.println(funcName + dst.id + "[" + i + "]: " + src.children.get(i).id);
 					}
 
-					AmazingTreeNode<T> child = (AmazingTreeNode<T>) src.copy(src.children.get(i));
-					child.height = parent.height + 1;
-					child.rootId = parent.rootId;
-					child.parentId = parent.id;
-					dst.children.add((AmazingTreeNode<T>) child);
+					AmazingTreeNode<T> child = (AmazingTreeNode<T>) src.copy(dst, src.children.get(i));
+					dst.children.add(child);
 				}
 				catch (Exception e) {
 					e.printStackTrace();
@@ -429,10 +429,6 @@ public class AmazingTreeNode<T> implements Cloneable {
 					}
 
 					AmazingTreeNode<T> child = (AmazingTreeNode<T>) src.copy(src.children.get(i));
-					child.height = dst.height + 1;
-					child.rootId = dst.rootId;
-					child.parentId = dst.id;
-
 					dst.children.add(child);
 				}
 				catch (Exception e) {
