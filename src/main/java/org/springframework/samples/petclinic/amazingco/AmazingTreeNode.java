@@ -287,28 +287,36 @@ public class AmazingTreeNode<T> implements Cloneable {
 		String funcName = "[AmazingTreeNode<T>.pluck(" + id + ")]:: ";
 		AmazingTreeNode<T> retval = null;
 
-		if (this.id.equalsIgnoreCase(id) && this.hasChildren()) {
-			// BASE CASE: Node found w/children. Pluck this node and continue with a deep
-			// copy.
+		if (this.id.equalsIgnoreCase(id) && !this.hasChildren()) {
+			// BASE CASE[1]: Node found w/out children. Pluck this node and stop.
 			if (isDebugOn()) {
-				System.out.println(funcName + "BASE CASE[FOUND w/children]: " + this.id);
+				System.out.println(funcName + "BASE CASE[FOUND W/OUT children]: " + "ID: " + this.id + "ROOT: "
+						+ root.id + " PARENT: " + this.parentId);
 			}
 
+			retval = this;
+
+			System.out.println(
+					funcName + "BASE CASE[FOUND W/OUT children]: retval " + ((retval == null) ? "null" : retval.id));
+		}
+		else if (this.id.equalsIgnoreCase(id) && this.hasChildren()) {
+			// BASE CASE[2]: Node found w/children. Pluck this node and continue with a
+			// deep copy.
 			if (isDebugOn()) {
-				System.out.println(
-						funcName + "BASE CASE[FOUND w/children]: " + "ROOT: " + root.id + " PARENT: " + this.parentId);
+				System.out.println(funcName + "BASE CASE[FOUND W/CHILDREN]: " + "ID: " + this.id + "ROOT: " + root.id
+						+ " PARENT: " + this.parentId);
 			}
 
 			AmazingTreeNode<T> parent = root.get(this.parentId);
 			if (isDebugOn()) {
-				System.out.println(funcName + "BASE CASE[FOUND w/children]: ");
+				System.out.println(funcName + "BASE CASE[FOUND W/CHILDREN]: ");
 				System.out.println(funcName + "LINE NUMBER: " + new Throwable().getStackTrace()[0].getLineNumber());
 			}
 
 			IntStream.range(0, this.children.size()).forEachOrdered(i -> {
 				AmazingTreeNode<T> child = this.children.get(i);
 				if (isDebugOn()) {
-					System.out.println(funcName + "BASE CASE[FOUND w/children]: " + this.id + "[" + i + "]: " + child.id
+					System.out.println(funcName + "BASE CASE[FOUND W/CHILDREN]: " + this.id + "[" + i + "]: " + child.id
 							+ " / " + child.height + " / " + child.parentId);
 				}
 
@@ -323,7 +331,7 @@ public class AmazingTreeNode<T> implements Cloneable {
 			this.children.clear();
 			retval = this;
 			System.out.println(
-					funcName + "BASE CASE[FOUND w/children]: retval " + ((retval == null) ? "null" : retval.id));
+					funcName + "BASE CASE[FOUND W/CHILDREN]: retval " + ((retval == null) ? "null" : retval.id));
 		}
 		else if (this.hasChildren()) {
 			// RECURSIVE CASE: Node not found, search children for node, if any.
@@ -493,6 +501,10 @@ public class AmazingTreeNode<T> implements Cloneable {
 				System.out.println(funcName + "Searching for FROM node: " + from);
 			}
 			AmazingTreeNode<T> fromNode = get(from);
+			if (fromNode == null) {
+				System.out.println(funcName + "!!! NOT FOUND: " + from + " NOT FOUND !!!");
+				return;
+			}
 
 			// CHILD
 			//
@@ -508,6 +520,11 @@ public class AmazingTreeNode<T> implements Cloneable {
 				}
 
 				childNode = fromNode.pluck(fromNode, childId);
+				if (childNode == null) {
+					System.out.println(funcName + "!!! NOT FOUND: " + childId + " NOT FOUND !!!");
+					return;
+				}
+
 				if (isDebugOn()) {
 					// Print the new arragement.
 					System.out.println(funcName + "== POST-PLUCK ============================");
@@ -526,6 +543,10 @@ public class AmazingTreeNode<T> implements Cloneable {
 				System.out.println(funcName + "Searching for TO node " + to);
 			}
 			AmazingTreeNode<T> toNode = get(to);
+			if (toNode == null) {
+				System.out.println(funcName + "!!! NOT FOUND: " + to + " NOT FOUND !!!");
+				return;
+			}
 
 			// Adjust primitives in respect to the new parent.
 			childNode.height = toNode.height - 1;

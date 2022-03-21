@@ -41,16 +41,6 @@ class VetController {
 	public VetController(VetRepository clinicService) {
 		this.vetRepo = clinicService;
 
-		Vets vets = new Vets();
-		List<Vet> vetList = vets.getVetList();
-		vetList.addAll(this.vetRepo.findAll());
-
-		System.out.print("\n=======================================================");
-		System.out.println("======================================================");
-		IntStream.range(0, vetList.size()).forEachOrdered(i -> {
-			System.out.println("== VET: " + vetList.get(i).getFirstName() + " " + vetList.get(i).getLastName());
-		});
-
 	}
 
 	@GetMapping("/vets.html")
